@@ -7,12 +7,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Dashboard code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set variables
+        run: |
+          git reset --soft HEAD~1
+          echo "COMMIT=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
       - uses: pnpm/action-setup@v2
         with:
           version: latest
       - name: Setup Nodejs
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18.x'
           cache: pnpm
@@ -20,11 +26,13 @@ jobs:
         run: |
           pnpm install --no-frozen-lockfile
           pnpm build
-      - name: Deploy
-        uses: crazy-max/ghaction-github-pages@v2
-        with:
-          target_branch: gh-pages
-          build_dir: public
-          fqdn: yacd.metacubex.one
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish
+        run: |
+          cd public || exit 1
+          git init --initial-branch=gh-pages
+          git config --local user.name "${{ github.actor }}"
+          git config --local user.email "${{ github.actor }}@users.noreply.github.com"
+          git add -A
+          git commit -m "${COMMIT}"
+          git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
+          git push -f -u origin gh-pages

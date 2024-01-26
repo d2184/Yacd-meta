@@ -74,12 +74,13 @@ function ProxyProviderImpl({
 
   const timeAgo = formatDistance(new Date(updatedAt), new Date());
   const total = subscriptionInfo ? formatBytes(subscriptionInfo.Total) : 0;
-  const used = subscriptionInfo
-    ? formatBytes(subscriptionInfo.Download + subscriptionInfo.Upload)
+  const unused = subscriptionInfo
+    ? formatBytes(subscriptionInfo.Total - subscriptionInfo.Download - subscriptionInfo.Upload)
     : 0;
   const percentage = subscriptionInfo
     ? (
-        ((subscriptionInfo.Download + subscriptionInfo.Upload) / subscriptionInfo.Total) *
+        ((subscriptionInfo.Total - subscriptionInfo.Download - subscriptionInfo.Upload) /
+          subscriptionInfo.Total) *
         100
       ).toFixed(2)
     : 0;
@@ -134,7 +135,7 @@ function ProxyProviderImpl({
       <div className={s.updatedAt}>
         {subscriptionInfo && (
           <small>
-            {used} / {total} ( {percentage}% ) &nbsp;&nbsp; Expire: {expireStr()}{' '}
+            {unused} / {total} ( {percentage}% ) &nbsp;&nbsp; Expire: {expireStr()}{' '}
           </small>
         )}
         <br />

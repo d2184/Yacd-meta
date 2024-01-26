@@ -8,23 +8,9 @@ const mapState = (s) => ({
   apiConfigs: getClashAPIConfigs(s),
 });
 
-function HeadImpl({
-  apiConfig,
-  apiConfigs,
-}: {
-  apiConfig: { baseURL: string };
-  apiConfigs: any[];
-}) {
+function HeadImpl() {
   React.useEffect(() => {
     let title = 'yacd';
-    if (apiConfigs.length > 1) {
-      try {
-        const host = new URL(apiConfig.baseURL).host;
-        title = `${host} - yacd`;
-      } catch (e) {
-        // ignore
-      }
-    }
     document.title = title;
   });
 

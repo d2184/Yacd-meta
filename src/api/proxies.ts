@@ -37,7 +37,7 @@ export async function requestDelayForProxy(
   latencyTestUrl = 'https://www.gstatic.com/generate_204'
 ) {
   const { url, init } = getURLAndInit(apiConfig);
-  const qs = `timeout=5000&url=${encodeURIComponent(latencyTestUrl)}`;
+  const qs = `timeout=3000&url=${encodeURIComponent(latencyTestUrl)}`;
   const fullURL = `${url}${endpoint}/${encodeURIComponent(name)}/delay?${qs}`;
   return await fetch(fullURL, init);
 }
@@ -45,10 +45,10 @@ export async function requestDelayForProxy(
 export async function requestDelayForProxyGroup(
   apiConfig,
   name,
-  latencyTestUrl = 'http://www.gstatic.com/generate_202'
+  latencyTestUrl = 'https://www.gstatic.com/generate_204'
 ) {
   const { url, init } = getURLAndInit(apiConfig);
-  const qs = `url=${encodeURIComponent(latencyTestUrl)}&timeout=2000`;
+  const qs = `url=${encodeURIComponent(latencyTestUrl)}&timeout=3000`;
   const fullUrl = `${url}/group/${encodeURIComponent(name)}/delay?${qs}`;
   return await fetch(fullUrl, init);
 }

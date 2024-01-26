@@ -10,7 +10,7 @@
 
 Install [twemoji](https://github.com/mozilla/twemoji-colr/releases) to display emoji better on Windows system.
 
-The site http://yacd.metacubex.one is served with HTTP not HTTPS is because many browsers block requests to HTTP resources from a HTTPS website. If you think it's not safe, you could just download the [zip of the gh-pages](https://github.com/MetaCubeX/yacd/archive/gh-pages.zip), unzip and serve those static files with a web server(like Nginx).
+The site http://yacd.metacubex.one is served with HTTP not HTTPS is because many browsers block requests to HTTP resources from a HTTPS website. If you think it's not safe, you could just download the [zip of the gh-pages](https://github.com/d2184/Yacd-meta/archive/gh-pages.zip), unzip and serve those static files with a web server(like Nginx).
 
 **Supported URL query params**
 
